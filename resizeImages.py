@@ -2,7 +2,7 @@ import os
 
 from PIL import Image
 
-inputPath = r'C:\Users\danie\Documents\Python\Sunlight-Map\test'
+inputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2'
 
 imgs = [file for file in os.listdir(inputPath) if '.' in file and file.split('.')[1].lower() == 'jpg']
 

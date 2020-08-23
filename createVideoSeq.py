@@ -1,9 +1,9 @@
 import os
 from PIL import Image
 
-inputDir = r'C:\Users\danie\Documents\Python\Sunlight-Map\test'
-inputOverlayDir = r'C:\Users\danie\Documents\Python\Sunlight-Map\test\output'
-outputDir = r'C:\Users\danie\Documents\Python\Sunlight-Map\test\sequence'
+inputDir = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2'
+inputOverlayDir = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2\Output'
+outputDir = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2\Sequence'
 imgs = [file for file in os.listdir(inputDir) if '.' in file and file.split('.')[1].lower() == 'jpg']
 
 for imgFilename in imgs:

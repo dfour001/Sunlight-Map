@@ -8,9 +8,9 @@ import os
 ##            Black = Areas to analyze
 ##            White = Areas to ignore
 
-inputPath = r'C:\Users\danie\Documents\Python\Sunlight-Map\test'
-outputPath = r'C:\Users\danie\Documents\Python\Sunlight-Map\test\output'
-maskPath = r'C:\Users\danie\Documents\Python\Sunlight-Map\mask.jpg'
+inputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2'
+outputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2\output'
+maskPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2\Mask.JPG'
 
 def main():
     # imgs is a list containing the names of each of the jpg images located in the
@@ -99,4 +99,41 @@ def create_sunlight_map_overlay(img, map, filename):
     img.paste(inputmap, (0,0), inputmap)
     img.save(outputPath + '\\' + filename.split('.')[0] + '_overlay.jpg')
 
-main()
+def test():
+    calculate_sun_exposure(5)
+
+
+def calculate_sun_exposure(minutes=1):
+    sunmaps = [smap for smap in os.listdir(outputPath) if '_sunMap' in smap]
+
+    outputValues = []
+
+    for sunmapFile in sunmaps:
+        sunmap = Image.open(outputPath + '//' + sunmapFile)
+        sunmapData = sunmap.getdata()
+        for i, px in enumerate(sunmapData):
+            if px < 150:
+                v = 1
+            else:
+                v = 0
+
+            if len(outputValues) > i:
+                outputValues[i] += v * minutes
+            else:
+                outputValues.append(v)
+
+
+    # Create output exposureMap Image
+    # load the first sunmap as size reference
+    sunmap = Image.open(outputPath + '//' + sunmaps[0])
+    exposureMap = Image.new('I', sunmap.size)
+    exposureMap.putdata(outputValues)
+
+    print(max(outputValues))
+    exposureMap.show()
+    exposureMap.save(outputPath + '//' + 'output.tif')
+
+    return exposureMap
+
+test()
+#main()
