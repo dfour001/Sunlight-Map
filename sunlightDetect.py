@@ -8,9 +8,9 @@ import os
 ##            Black = Areas to analyze
 ##            White = Areas to ignore
 
-inputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2'
-outputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2\output'
-maskPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test2\Mask.JPG'
+inputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test4'
+outputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test4\output'
+maskPath = None
 
 def main():
     # imgs is a list containing the names of each of the jpg images located in the
@@ -30,13 +30,14 @@ def main():
         else:
             inputMask = None
 
-        sunMap = create_sunlight_map(inputImg, inputMask)
+        sunMap = create_sunlight_map(inputImg, inputMask, v=200, saveBW=True)
         outputFile = img.split('.')[0] + '_sunMap.jpg'
         sunMap.save(outputPath + '\\' + outputFile)
         create_sunlight_map_overlay(inputImg, sunMap, img)
+        calculate_sun_exposure(5)
 
 
-def create_sunlight_map(img, mask, v=229, show=False, saveBW=False):
+def create_sunlight_map(img, mask, v=229, show=False, saveBW=False, contrast=2.5):
     # Convert to BW image
     print(img)
     imgBW = img.convert("L")
@@ -50,8 +51,8 @@ def create_sunlight_map(img, mask, v=229, show=False, saveBW=False):
 
     # Increase Contrast
     cont = ImageEnhance.Contrast(imgBW)
-##    imgBW = cont.enhance(3)
-    imgBW = cont.enhance(2.5)
+
+    imgBW = cont.enhance(contrast)
 
     if saveBW:
         imgBW.save(outputPath + '\\' + img.filename.split('\\')[-1].split('.')[0] + '_contrast.jpg')
@@ -130,10 +131,9 @@ def calculate_sun_exposure(minutes=1):
     exposureMap.putdata(outputValues)
 
     print(max(outputValues))
-    exposureMap.show()
     exposureMap.save(outputPath + '//' + 'output.tif')
 
     return exposureMap
 
-test()
-#main()
+#test()
+main()
