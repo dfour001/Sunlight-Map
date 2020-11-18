@@ -8,9 +8,9 @@ import os
 ##            Black = Areas to analyze
 ##            White = Areas to ignore
 
-inputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test4'
-outputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test4\output'
-maskPath = None
+inputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test5\input'
+outputPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test5\output'
+maskPath = r'C:\Users\danie\Documents\Python\Sunlighttest\Test5\Mask.JPG'
 
 def main():
     # imgs is a list containing the names of each of the jpg images located in the
@@ -30,7 +30,7 @@ def main():
         else:
             inputMask = None
 
-        sunMap = create_sunlight_map(inputImg, inputMask, v=200, saveBW=True)
+        sunMap = create_sunlight_map(inputImg, inputMask, saveBW=True)
         outputFile = img.split('.')[0] + '_sunMap.jpg'
         sunMap.save(outputPath + '\\' + outputFile)
         create_sunlight_map_overlay(inputImg, sunMap, img)
@@ -48,7 +48,7 @@ def create_sunlight_map(img, mask, v=229, show=False, saveBW=False, contrast=2.5
     # Blur image
 ##    imgBW = imgBW.filter(ImageFilter.GaussianBlur(5))
     imgBW = imgBW.filter(ImageFilter.GaussianBlur(3))
-
+    imgBW.save(outputPath + '\\' + img.filename.split('\\')[-1].split('.')[0] + '_blur.jpg')
     # Increase Contrast
     cont = ImageEnhance.Contrast(imgBW)
 
