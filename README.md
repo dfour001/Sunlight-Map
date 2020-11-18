@@ -18,7 +18,8 @@ The script finds sunlit areas by simple image manipulation using the Pillow libr
 ### Finished Product
 Once each image has been analyzed, all of the sunlight maps are added together to determine how long any given area was exposed to direct sunlight.  Sunlit pixels of each sunlight map is assigned a value of 1, then is multiplied by the number of minutes between each exposure (5 minutes in my case).  Then each of these values are added together in a single output tif.
 
-Right now the script doesn't do anything else to display the output besides saving the tif file - maybe next gardening season I'll have it create a pretty output image.  I made these by importing the output tif into ArcMap and adding a legend in the layout editor:
+Right now the script doesn't do anything else to display the output besides saving the tif file - maybe next gardening season I'll have it create a pretty output image.  I made these below by importing the output tif into ArcMap and adding a legend in the layout editor:
+
 <img src="TotalSunlight.jpg" />
 <img src="SunlightCat.jpg" />
 
